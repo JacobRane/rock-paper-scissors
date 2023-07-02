@@ -11,9 +11,8 @@ function getComputerChoice() {
    }
 }
 
-function singleRound() {
+function singleRound(playerChoice) {
     let computerChoice = getComputerChoice()
-    let playerChoice = prompt("Write rock, paper or scissors").toLowerCase();
     if (playerChoice === computerChoice) {
         return "Tie!" }
     else if (playerChoice === "rock" && computerChoice === "paper") {
@@ -29,49 +28,48 @@ function singleRound() {
     else if (playerChoice === "scissors" && computerChoice === "paper") {
         return "You won!" }               
 }
+ const scoreText = document.querySelector("#score")
+ let humanScore = 0
+ let computerScore = 0
+ scoreText.textContent = `Player ${humanScore} - ${computerScore} Computer`
 
-function game() {
-    let playerScore = "0"
-    let computerScore = "0"
+ function checkWinorlose(singleroundresult) {
+    if (singleroundresult === "You won!") {
+    humanScore += 1;
+    }
+    else if (singleroundresult === "You lost!") {
+    computerScore += 1;
+    }
+    scoreText.textContent = `Player ${humanScore} - ${computerScore} Computer`
+ }
+ function winorlossChecker() {
+    if ((humanScore + computerScore) >= 5) {
+        if (humanScore > computerScore) {
+            scoreText.textContent = "YOU WON!"
+        }
+        else if (humanScore < computerScore) {
+            scoreText.textContent = "YOU LOST!"
+        }
+        else if (humanScore === computerScore) {
+            scoreText.textContent = "TIE!"
+        }
+    }
+ }
 
-let round1 = singleRound()
-     if (round1 === "You won!") {
-        console.log("Win. Player score - " + (Number(++playerScore)) + " Computer score - "  + (Number(computerScore)))}
-    else if (round1 === "You lost!") { console.log("Lost. Player score - " + (Number(playerScore)) + " Computer score - "  + (Number(++computerScore)))}
-    else {console.log("Tie! Scores remain unchanged.")}
+document.querySelector("#btn1").addEventListener('click', function() {
+   const winorlose = singleRound("rock");
+   checkWinorlose(winorlose);
+   winorlossChecker();
+}) 
 
-let round2 = singleRound()
-    if (round2 === "You won!") {
-        console.log("Win. Player score - " + (Number(++playerScore)) + " Computer score - "  + (Number(computerScore)))}
-    else if (round2 === "You lost!") { console.log("Lost. Player score - " + (Number(playerScore)) + " Computer score - "  + (Number(++computerScore)))}
-    else {console.log("Tie! Scores remain unchanged.")}
+document.querySelector("#btn2").addEventListener('click', function() {
+    const winorlose = singleRound("paper")
+    checkWinorlose(winorlose)
+    winorlossChecker();
+ }) 
 
-let round3 = singleRound()
-    if (round3 === "You won!") {
-        console.log("Win. Player score - " + (Number(++playerScore)) + " Computer score - "  + (Number(computerScore)))}
-    else if (round3 === "You lost!") { console.log("Lost. Player score - " + (Number(playerScore)) + " Computer score - "  + (Number(++computerScore)))}
-    else {console.log("Tie! Scores remain unchanged.")}
-
-let round4 = singleRound()
-    if (round4 === "You won!") {
-        console.log("Win. Player score - " + (Number(++playerScore)) + " Computer score - "  + (Number(computerScore)))}
-    else if (round4 === "You lost!") { console.log("Lost. Player score - " + (Number(playerScore)) + " Computer score - "  + (Number(++computerScore)))}
-    else {console.log("Tie! Scores remain unchanged.")}
-
-let round5 = singleRound()  
-    if (round5 === "You won!") {
-        console.log("Win. Player score - " + (Number(++playerScore)) + " Computer score - "  + (Number(computerScore)))}
-    else if (round5 === "You lost!") { console.log("Lost. Player score - " + (Number(playerScore)) + " Computer score - "  + (Number(++computerScore)))}
-    else {console.log("Tie! Scores remain unchanged.")}
-if (playerScore > computerScore) {
-    console.log("You win! The computer has been defeated by your exceptional finger abilities!")
-}
-else if (playerScore < computerScore) {
-    console.log("You lost! The computer is simply too strong!")
-}
-else if (playerScore = computerScore) {
-    console.log("Its a tie! Both of you were an even match. But that might not stand true next time....")
-}
-}
-
-game()
+document.querySelector("#btn3").addEventListener('click', function() {
+    const winorlose = singleRound("scissors")
+    checkWinorlose(winorlose)
+    winorlossChecker();
+ }) 
